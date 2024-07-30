@@ -1,0 +1,65 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "exercicio",
+    "dateExported": "2024-07-30T14:01:44.227Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "29692ec8-6c83-457e-9922-09139781026c",
+            "colId": "e3c28680-7f4c-4e4e-bb02-cd2385e80bc2",
+            "containerId": "",
+            "name": "teste requisicao GET",
+            "url": "localhost/exercicio/api.php/cursos/8",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-07-30T12:19:14.219Z",
+            "modified": "2024-07-30T13:49:03.220Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "173763cb-d5b3-48f8-9410-30982ee14de2",
+            "colId": "e3c28680-7f4c-4e4e-bb02-cd2385e80bc2",
+            "containerId": "",
+            "name": "teste requisicao POST",
+            "url": "localhost/exercicio/api.php/alunos",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-30T12:20:10.795Z",
+            "modified": "2024-07-30T13:39:28.679Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b04538c6-4105-400a-bcd0-5e1881729265",
+            "colId": "e3c28680-7f4c-4e4e-bb02-cd2385e80bc2",
+            "containerId": "",
+            "name": "teste requisicao PUT",
+            "url": "localhost/exercicio/api.php",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-07-30T12:21:24.420Z",
+            "modified": "2024-07-30T12:21:30.902Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "55ddfa6d-8f7c-4db2-8eea-6bdcd2d28d1b",
+            "colId": "e3c28680-7f4c-4e4e-bb02-cd2385e80bc2",
+            "containerId": "",
+            "name": "teste requisicao DELETE",
+            "url": "localhost/exercicio/api.php",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-07-30T12:21:47.537Z",
+            "modified": "2024-07-30T12:21:54.004Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

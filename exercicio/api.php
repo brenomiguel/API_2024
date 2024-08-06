@@ -28,26 +28,26 @@
     switch($metodo){
         case 'GET':
             if($terceiraparte == 'alunos' && $quartaparte == ''){
-                echo json_encode([
-                    'mensagem '=> 'Lista de todos os alunos'
-                ]);
+                lista_alunos();
+                
             }elseif($terceiraparte == 'alunos' && $quartaparte != ''){
-                echo json_encode([
-                    'mensagem '=> 'Lista de um aluno',
-                    'id_aluno' => $quartaparte
-                ]);
+                lista_um_aluno($quartaparte);
             }elseif($terceiraparte == 'cursos' && $quartaparte == '') {
-                echo json_encode([
-                    'mensagem '=> 'Lista de todos os cursos'
-                ]);
+                lista_cursos();
             }elseif($terceiraparte == 'cursos' && $quartaparte != ''){
-                echo json_encode([
-                    'mensagem '=> 'Lista de um curso',
-                    'id_curso' => $quartaparte
-                ]);
+                lista_um_curso($quartaparte);
             }
             break;
         case 'POST':
+            if($terceiraparte == 'alunos'){
+                echo json_encode([
+                    'mensagem '=> 'INSERE UM ALUNO'
+                ]);
+            }elseif($terceiraparte == 'cursos'){
+                echo json_encode([
+                    'mensagem '=> 'INSERE UM NOVO CURSO'
+                ]);
+            }
             break;
         case 'PUT':
             break;
@@ -58,6 +58,51 @@
                 'mensagem' => 'metodo não permitido'
             ]);
             break;
+    }
+    
+    function lista_alunos(){
+        global $conexao;
+        $resultado = $conexao->query("SELECT * FROM alunos");
+        $alunos = $resultado->fetch_all(MYSQLI_ASSOC);
+        echo json_encode([
+            'mensagem '=> 'Lista de todos os alunos',
+            'dados' => $alunos
+        ]);
+    }
+    function lista_um_aluno($quartaparte){
+        global $conexao;
+        $stmt = $conexao->prepare("SELECT * FROM alunos WHERE id = ?");
+        $stmt->bind_param('i',$quartaparte);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $aluno = $resultado->fetch_assoc();
+
+        echo json_encode([
+            'mensagem '=> 'Lista de um aluno',
+            'dados_aluno' => $aluno
+        ]);
+    }
+    function lista_cursos(){
+        global $conexao;
+        $resultado = $conexao->query("SELECT * FROM cursos");
+        $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
+        echo json_encode([
+            'mensagem '=> 'Lista de todos os cursos',
+            'dados' => $cursos
+        ]);
+    }
+    function lista_um_curso($quartaparte){
+        global $conexao;
+        $stmt = $conexao->prepare("SELECT * FROM cursos WHERE id = ?");
+        $stmt->bind_parem('i',$quartaparte);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $curso = $resultado->fetch_assoc();
+
+        echo json_encode([
+            'mensagem '=> 'Lista de um curso',
+            'dados_cursos' => $curso
+        ]);
     }
 
 ?>

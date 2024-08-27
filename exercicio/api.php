@@ -52,8 +52,21 @@
             }
             break;
         case 'PUT':
+
+            if ($terceiraparte == 'alunos'){
+                atualiza_aluno();
+            }
+            elseif ($terceiraparte == 'cursos'){
+                atualiza_curso();
+            }
             break;
         case 'DELETE':
+            if ($terceiraparte == 'alunos'){
+                remove_aluno();
+            }
+            elseif ($terceiraparte == 'cursos'){
+                remove_curso();
+            }
             break;
         default:
             echo json_encode([
@@ -109,6 +122,11 @@
 
     function insere_curso(){
         global $conexao;
+        //opção json
+        //$input = json_decode(file_get_contents('php://input'), true);
+        //$nome_curso = $input['nome_curso'];
+
+        //opção com parametros
         $nome_curso = $_GET['nome_curso'];
 
         $sql = "INSERT INTO cursos (nome_curso) VALUES ('$nome_curso')";
@@ -121,6 +139,107 @@
         else {
             echo json_encode([
                 'mensagem' => 'ERRO NO CADASTRO DO CURSO'
+            ]);
+        }
+    }
+
+    function insere_aluno(){
+        global $conexao;
+        //Para inserir um aluno é obrigatório que haja um curso desejado já cadastrado!
+        //Neste exemplo vamos passar os parâmetros via JSON
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id_curso = $input['fk_cursos_id_cursos'];
+        $nome = $input['nome'];
+        $email = $input['email'];
+
+        $sql = "INSERT INTO alunos (nome,email,fk_cursos_id_curso) VALUES ('$nome','$email','$id_curso')";
+
+        if($conexao->query($sql) == TRUE){
+            echo json_encode([
+                'mensagem' => 'ERRO NO CADASTRO DO ALUNO'
+            ]);
+        }
+    }
+
+
+    function atualiza_aluno(){
+        global $conexao;
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id = $input['id'];
+        $nome_novo = $input['nome_novo'];
+        $email_novo = $input['email_novo'];
+
+        $sql = "UPDATE alunos SET nome = '$nome_novo', email = '$email_novo', WHERE id = '$id'";
+
+        if($conexao->query($sql) == TRUE){
+            echo json_encode([
+                'mensagem' => ' ALUNO ATUALIZADO COM SUCESSO'
+            ]);
+        }
+        else {
+            echo json_encode([
+                'mensagem' => 'ERRO NA ATUALIZAÇÃO DO ALUNO'
+            ]);
+        }
+    }
+
+    function atualiza_curso(){
+        global $conexao;
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id_curso = $input['id_curso'];
+        $nome_curso_novo = $input['nome_curso_novo'];
+
+
+        $sql = "UPDATE cursos SET nome_curso = '$nome_curso_novo' WHERE id_curso = '$id_curso'";
+
+        if($conexao->query($sql) == TRUE){
+            echo json_encode([
+                'mensagem' => ' CURSO ATUALIZADO COM SUCESSO'
+            ]);
+        }
+        else {
+            echo json_encode([
+                'mensagem' => 'ERRO NA ATUALIZAÇÃO DO CURSO'
+            ]);
+        }
+    }
+
+
+    function remove_aluno(){
+        global $conexao;
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id = $input['id'];
+        $sql = "DELETE FROM alunos WHERE id = '$id'";
+
+        if($conexao->query($sql) == TRUE){
+            echo json_encode([
+                'mensagem' => ' ALUNO ATUALIZADO COM SUCESSO'
+            ]);
+        }
+        else {
+            echo json_encode([
+                'mensagem' => 'ERRO NA ATUALIZAÇÃO DO ALUNO'
+            ]);
+        }
+    }
+
+    function remove_curso(){
+        global $conexao;
+        $input = json_decode(file_get_contents('php://input'), true);
+        $id_curso = $input['id_curso'];
+        $sql = "DELETE FROM cursos WHERE id_curso = '$id_curso'";
+
+        if($conexao->query($sql) == TRUE){
+            echo json_encode([
+                'mensagem' => ' CURSO REMOVIDO COM SUCESSO'
+            ]);
+        }
+        else {
+            echo json_encode([
+                'mensagem' => 'ERRO NA REMOÇÃO DO CURSO'
             ]);
         }
     }

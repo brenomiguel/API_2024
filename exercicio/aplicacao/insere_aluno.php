@@ -36,63 +36,68 @@
     include 'menu_principal.php';
 ?>
 
-    <div class="pcoded-inner-content">
+                        <div class="pcoded-inner-content">
                             <!-- Main-body start -->
-        <div class="main-body">
-            <div class="page-wrapper">
+                            <div class="main-body">
+                                <div class="page-wrapper">
                                     <!-- Page-body start -->
-                <div class="page-body">
-                    <div class="row">
+                                    <div class="page-body">
+                                        <div class="row">
                                             <!-- Project statustic start -->
-                        <div class="col-xl-12">
-                                <div class="row">
-                                    <div class="col-xl-8 col-md-10 m-auto">
-                                        <h2>Insere novo aluno</h2>
-                                        <form action="cadastra_aluno.php" method="POST">
-                                            <div class="mb-3">
-                                                <label for="nome" class="form-label">Nome do Aluno</label>
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do aluno" required>
-                                            </div> 
+                                            <div class="col-xl-12">
+                                                <div class="row">
+                                                    <div class="col-xl-8 col-md-10 m-auto">
+                                                        <h2>Insere novo aluno</h2>
+                                                        <form action="cadastra_aluno.php" method="POST">
+                                                            <div class="mb-3">
+                                                                <label for="nome" class="form-label">Nome do Aluno</label>
+                                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do aluno" required>
+                                                            </div> 
 
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email do Aluno</label>
-                                                <input type="text" id="email" name="email" class="form-control" placeholder="Digite o email do aluno" required>
-                                            </div> 
+                                                            <div class="mb-3">
+                                                                <label for="email" class="form-label">Email do Aluno</label>
+                                                                <input type="text" id="email" name="email" class="form-control" placeholder="Digite o email do aluno" required>
+                                                            </div> 
 
-                                            <div class="mb-3">
-                                                <label for="cursos-dropdown" class="form-label">Nome do Curso</label>
-                                                    <?php
-                                                        $url = 'http://localhost/exercicio/api.php/cursos';
-                                                        $response = file_get_contents($url);
-                                                        $data = json_decode($response, true);
+                                                            <div class="mb-3">
+                                                                <label for="cursos-dropdown" class="form-label">Nome do Curso</label>
+                                                                <?php
+                                                                    $url = 'http://localhost/exercicio/api.php/cursos';
+                                                                    $response = file_get_contents($url);
+                                                                    $data = json_decode($response, true);
 
-                                                        if (isset($data['dados'])) {
-                                                            echo '<select class="form-select" id="cursos-dropdown" name="curso_id" required>';
-                                                            echo '<option value="" disabled selected>Selecione um curso</option>';
-                                                            foreach ($data['dados'] as $curso) {
-                                                                echo '<option value="' . $curso['id_curso'] . '">' . htmlspecialchars($curso['nome_curso']) . '</option>';
-                                                            }
-                                                                echo '</select>';
-                                                            } else {
-                                                                echo '<p>Nenhum curso encontrado.</p>';
-                                                            }
-                                                    ?>
+                                                                    if (isset($data['dados'])) {
+                                                                        echo '<select class="form-select" id="cursos-dropdown" name="curso_id" required>';
+                                                                        echo '<option value="" disabled selected>Selecione um curso</option>';
+                                                                        foreach ($data['dados'] as $curso) {
+                                                                            echo '<option value="' . $curso['id_curso'] . '">' . htmlspecialchars($curso['nome_curso']) . '</option>';
+                                                                        }
+                                                                        echo '</select>';
+                                                                    } else {
+                                                                        echo '<p>Nenhum curso encontrado.</p>';
+                                                                    }
+                                                                ?>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                                             <!-- Project statustic end -->
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
                         </div>
                     </div>
-                                    <!-- Page-body end -->
                 </div>
-            <div id="styleSelector"> </div>
+            </div>
         </div>
     </div>
-
+    
 
     <!-- Required Jquery -->
     <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>

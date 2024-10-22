@@ -1,0 +1,76 @@
+/* Lógico_1: */
+
+CREATE DATABASE biblioteca;
+
+USE biblioteca;
+
+CREATE TABLE usuario (
+    id_usuario int PRIMARY KEY,
+    nome varchar(100),
+    email varchar(100),
+    senhas varchar(255 ),
+    endereco varchar(255),
+    telefone varchar(20),
+    tipo_usuario enum('admin', 'leitor')
+);
+
+CREATE TABLE livros (
+    id_livro int PRIMARY KEY,
+    titulo varchar(255),
+    autor varchar(100),
+    quantidade_fisico int,
+    url_ebook varchar(255),
+    tipo_livro enum('fisico', 'ebook'),
+    editora varchar(100),
+    ano_publicacao int(4),
+    fk_emprestimos_id_emprestimo int
+);
+
+CREATE TABLE emprestimos (
+    id_emprestimo int PRIMARY KEY,
+    id_usuario int,
+    id_livro int,
+    data_devolucao date,
+    data_emprestimo date,
+    status enum('emprestado', 'devolvido'),
+    fk_usuario_id_usuario int
+);
+
+CREATE TABLE reservas (
+    id_reserva int PRIMARY KEY,
+    id_usuario int,
+    id_livro int,
+    data_reserva date,
+    status enum('ativa', 'cancelada', 'atendida'),
+    fk_usuario_id_usuario int
+);
+
+CREATE TABLE ter (
+    fk_reservas_id_reserva int,
+    fk_livros_id_livro int
+);
+ 
+ALTER TABLE livros ADD CONSTRAINT FK_livros_2
+    FOREIGN KEY (fk_emprestimos_id_emprestimo)
+    REFERENCES emprestimos (id_emprestimo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE emprestimos ADD CONSTRAINT FK_emprestimos_2
+    FOREIGN KEY (fk_usuario_id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE reservas ADD CONSTRAINT FK_reservas_2
+    FOREIGN KEY (fk_usuario_id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE ter ADD CONSTRAINT FK_ter_1
+    FOREIGN KEY (fk_reservas_id_reserva)
+    REFERENCES reservas (id_reserva)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE ter ADD CONSTRAINT FK_ter_2
+    FOREIGN KEY (fk_livros_id_livro)
+    REFERENCES livros (id_livro)
+    ON DELETE SET NULL;
